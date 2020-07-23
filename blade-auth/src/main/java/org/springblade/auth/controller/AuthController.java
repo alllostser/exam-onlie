@@ -20,6 +20,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springblade.auth.granter.ITokenGranter;
 import org.springblade.auth.granter.TokenGranterBuilder;
 import org.springblade.auth.granter.TokenParameter;
@@ -47,6 +48,7 @@ import java.util.concurrent.TimeUnit;
  */
 @RestController
 @AllArgsConstructor
+@Slf4j
 @Api(value = "用户授权认证", tags = "授权接口")
 public class AuthController {
 
@@ -61,7 +63,6 @@ public class AuthController {
 							 @ApiParam(value = "密码") @RequestParam(required = false) String password) {
 
 		String userType = Func.toStr(WebUtil.getRequest().getHeader(TokenUtil.USER_TYPE_HEADER_KEY), TokenUtil.DEFAULT_USER_TYPE);
-
 		TokenParameter tokenParameter = new TokenParameter();
 		tokenParameter.getArgs().set("tenantId", tenantId)
 			.set("account", account)
@@ -72,7 +73,6 @@ public class AuthController {
 
 		ITokenGranter granter = TokenGranterBuilder.getGranter(grantType);
 		UserInfo userInfo = granter.grant(tokenParameter);
-
 		if (userInfo == null || userInfo.getUser() == null || userInfo.getUser().getId() == null) {
 			return R.fail(TokenUtil.USER_NOT_FOUND);
 		}
