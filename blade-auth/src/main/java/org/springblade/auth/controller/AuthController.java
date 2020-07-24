@@ -70,13 +70,11 @@ public class AuthController {
 			.set("grantType", grantType)
 			.set("refreshToken", refreshToken)
 			.set("userType", userType);
-
 		ITokenGranter granter = TokenGranterBuilder.getGranter(grantType);
 		UserInfo userInfo = granter.grant(tokenParameter);
 		if (userInfo == null || userInfo.getUser() == null || userInfo.getUser().getId() == null) {
 			return R.fail(TokenUtil.USER_NOT_FOUND);
 		}
-
 		return R.data(TokenUtil.createAuthInfo(userInfo));
 	}
 

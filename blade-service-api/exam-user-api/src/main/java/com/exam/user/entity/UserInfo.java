@@ -13,25 +13,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springblade.auth;
+package com.exam.user.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
-import org.springblade.core.launch.BladeApplication;
-import org.springblade.core.launch.constant.AppConstant;
-import org.springframework.cloud.client.SpringCloudApplication;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+import java.io.Serializable;
+import java.util.List;
 
 /**
- * 用户认证服务器
+ * 用户信息
  *
  * @author Chill
  */
-@SpringCloudApplication
-@EnableFeignClients({"com.exam",AppConstant.BASE_PACKAGES})
-public class AuthApplication {
+@Data
+@ApiModel(description = "用户信息")
+public class UserInfo implements Serializable {
 
-	public static void main(String[] args) {
-		BladeApplication.run(AppConstant.APPLICATION_AUTH_NAME, AuthApplication.class, args);
-	}
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * 用户基础信息
+	 */
+	@ApiModelProperty(value = "用户")
+	private SysUser user;
+
+	/**
+	 * 权限标识集合
+	 */
+	@ApiModelProperty(value = "权限集合")
+	private List<String> permissions;
+
+	/**
+	 * 角色集合
+	 */
+	@ApiModelProperty(value = "角色集合")
+	private List<String> roles;
 
 }

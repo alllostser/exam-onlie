@@ -39,7 +39,6 @@ public class RefreshTokenGranter implements ITokenGranter {
 	public static final String GRANT_TYPE = "refresh_token";
 
 	private IUserClient userClient;
-
 	@Override
 	public UserInfo grant(TokenParameter tokenParameter) {
 		String grantType = tokenParameter.getArgs().getStr("grantType");

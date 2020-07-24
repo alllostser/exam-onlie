@@ -16,6 +16,10 @@ public interface CommonConstant {
 	 * saber 系统名
 	 */
 	String SABER_NAME = "saber";
+	/**
+	 * 系统名
+	 */
+	String APPLICATION_EXAMUSER_NAME = "exam-user";
 
 	/**
 	 * 顶级父节点id

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.exam.user.mapper.IUserMapper">
+  <resultMap id="BaseResultMap" type="com.exam.user.entity.SysUser">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="login_name" jdbcType="VARCHAR" property="loginName" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="salt" jdbcType="VARCHAR" property="salt" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="locked" jdbcType="TINYINT" property="locked" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="create_by" jdbcType="BIGINT" property="createBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="update_by" jdbcType="BIGINT" property="updateBy" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="del_flag" jdbcType="TINYINT" property="delFlag" />
+    <result column="user_type" jdbcType="CHAR" property="userType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, login_name, nick_name, icon, password, salt, tel, email, locked, create_date,
+    create_by, update_date, update_by, remark, del_flag, user_type
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_user where id in
+    <foreach collection="array" close=")" open="(" separator="," item="id">
+      #{id}
+    </foreach>
+  </delete>
+  <insert id="insert" parameterType="com.exam.user.entity.SysUser">
+    insert into sys_user (id, login_name, nick_name,
+      icon, password, salt,
+      tel, email, locked,
+      create_date, create_by, update_date,
+      update_by, remark, del_flag,
+      user_type)
+    values (#{id,jdbcType=INTEGER}, #{loginName,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR},
+      #{icon,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR},
+      #{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{locked,jdbcType=TINYINT},
+      #{createDate,jdbcType=TIMESTAMP}, #{createBy,jdbcType=BIGINT}, #{updateDate,jdbcType=TIMESTAMP},
+      #{updateBy,jdbcType=BIGINT}, #{remark,jdbcType=VARCHAR}, #{delFlag,jdbcType=TINYINT},
+      #{userType,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.exam.user.entity.SysUser">
+    insert into sys_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="loginName != null">
+        login_name,
+      </if>
+      <if test="nickName != null">
+        nick_name,
+      </if>
+      <if test="icon != null">
+        icon,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="salt != null">
+        salt,
+      </if>
+      <if test="tel != null">
+        tel,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="locked != null">
+        locked,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+      <if test="userType != null">
+        user_type,
+      </if>
+      create_date,
+      update_date
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="loginName != null">
+        #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null">
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null">
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="locked != null">
+        #{locked,jdbcType=TINYINT},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=BIGINT},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=TINYINT},
+      </if>
+      <if test="userType != null">
+        #{userType,jdbcType=CHAR},
+      </if>
+      now(),
+      now()
+    </trim>
+  </insert>
+  <!--  更新用户信息-->
+  <update id="updateByPrimaryKeySelective" parameterType="com.exam.user.entity.SysUser">
+    update sys_user
+    <set>
+      <if test="loginName != null and loginName !=''">
+        login_name = #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null and nickName !=''">
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null and icon != ''">
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null and password !=''">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null and tel != ''">
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null and email != ''">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="locked != null and locked != ''">
+        locked = #{locked,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=TINYINT},
+      </if>
+      <if test="userType != null and userType != ''">
+        user_type = #{userType,jdbcType=CHAR},
+      </if>
+        update_date = now()
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.exam.user.entity.SysUser">
+    update sys_user
+    set login_name = #{loginName,jdbcType=VARCHAR},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      locked = #{locked,jdbcType=TINYINT},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=BIGINT},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=BIGINT},
+      remark = #{remark,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=TINYINT},
+      user_type = #{userType,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByUsernameAndPassword" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_user
+    where login_name=#{username} and password=#{password}
+  </select>
+  <!--  用户登录-->
+  <select id="selectByUsernameAndPassword2" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_user
+    where login_name=#{username}
+  </select>
+<!--  查找用户信息根据id-->
+  <select id="findUserById" parameterType="integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_user
+    where id=#{id}
+  </select>
+<!--  获取用户列表-->
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_user
+  </select>
+
+<!--  用户模糊查询-->
+  <select id="selectByUserTypeAndkeyword" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from sys_user
+    <where>
+      <if test="keyword != null and keyword != ''">
+        (login_name like #{keyword} or nick_name like #{keyword})
+      </if>
+      <if test="userType != null and userType !=''">
+        and user_type=#{userType}
+      </if>
+    </where>
+  </select>
+  <select id="findUserByIds" parameterType="integer" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from sys_user
+      where id in
+      <foreach collection="list" item="id" separator="," open="(" close=")">
+        #{id}
+      </foreach>
+  </select>
+<!--  统计记录条数-->
+  <select id="selectAllCount" resultType="integer">
+    select count(id) from sys_user
+  </select>
+
+    <select id="getUser" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM
+            sys_user
+        WHERE
+            login_name = #{param1} and password = #{param2}
+    </select>
+
+    <!--  修改密码-->
+  <update id="changePass">
+    update sys_user set password=#{newPassword} where id=#{id}
+  </update>
+</mapper>
