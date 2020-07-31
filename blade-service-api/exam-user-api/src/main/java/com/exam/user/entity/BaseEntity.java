@@ -31,16 +31,6 @@ public class BaseEntity implements Serializable {
 	protected String remark;
 
 	/**
-	 * 创建者
-	 */
-	protected SysUser createUser;
-
-	/**
-	 * 修改者
-	 */
-	protected SysUser updateUser;
-
-	/**
 	 * 请求参数
 	 */
 	private Map<String, Object> params;

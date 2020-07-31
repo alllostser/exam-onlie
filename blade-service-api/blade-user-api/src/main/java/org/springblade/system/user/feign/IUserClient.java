@@ -16,12 +16,16 @@
 package org.springblade.system.user.feign;
 
 
+import org.springblade.common.response.ServerResponse;
 import org.springblade.core.launch.constant.AppConstant;
 import org.springblade.core.tool.api.R;
+import org.springblade.system.user.entity.User;
 import org.springblade.system.user.entity.UserInfo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 /**
  * User Feign接口类
@@ -56,4 +60,14 @@ public interface IUserClient {
 	@GetMapping(API_PREFIX + "/user-info")
 	R<UserInfo> userInfo(@RequestParam("tenantId") String tenantId, @RequestParam("account") String account, @RequestParam("password") String password);
 
+	/**
+	 * 根据id查询用户信息
+	 * @param id
+	 * @return
+	 */
+	@GetMapping(API_PREFIX + "/user-by-id")
+	ServerResponse<User> findUserById(@RequestParam("id") Long id);
+
+	@GetMapping(API_PREFIX + "/user-by-ids")
+	List<User> findUserByIds(@RequestParam("teacherids") List<Long> teacherids);
 }

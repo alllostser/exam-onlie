@@ -23,6 +23,14 @@
         <module>blade-user</module>
         <module>blade-demo</module>
         <module>exam-user</module>
+        <module>exam-question</module>
+        <module>exam-exampaper</module>
+        <module>exam-student</module>
+        <module>exam-record</module>
+        <module>exam-examquestion</module>
+        <module>exam-teacher</module>
+        <module>exam-teacher</module>
+        <module>exam-score</module>
     </modules>
 
     <dependencies>

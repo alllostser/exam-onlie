@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.exam.teacher.mapper.ExamTeacherMapper">
+  <resultMap id="BaseResultMap" type="com.exam.teacher.entity.ExamTeacher">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="exam_id" jdbcType="INTEGER" property="examId" />
+    <result column="teacher_id" jdbcType="INTEGER" property="teacherId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, exam_id, teacher_id
+  </sql>
+
+  <insert id="insert" parameterType="com.exam.teacher.entity.ExamTeacher">
+    insert into exam_teacher (exam_id, teacher_id
+      )
+    values (#{examId,jdbcType=INTEGER}, #{teacherId,jdbcType=INTEGER}
+      )
+  </insert>
+
+  <select id="selectByExamId" resultType="long" parameterType="integer">
+    select teacher_id from exam_teacher where exam_id=#{examId}
+  </select>
+
+  <delete id="deleteByExamId" parameterType="integer">
+    delete from exam_teacher where exam_id=#{examId}
+  </delete>
+</mapper>

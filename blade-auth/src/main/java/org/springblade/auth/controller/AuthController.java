@@ -83,6 +83,7 @@ public class AuthController {
 	public R<Kv> captcha() {
 		SpecCaptcha specCaptcha = new SpecCaptcha(130, 48, 5);
 		String verCode = specCaptcha.text().toLowerCase();
+		System.out.println(verCode);
 		String key = UUID.randomUUID().toString();
 		// 存入redis并设置过期时间为30分钟
 		redisUtil.set(CacheNames.CAPTCHA_KEY + key, verCode, 30L, TimeUnit.MINUTES);

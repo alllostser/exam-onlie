@@ -22,6 +22,13 @@
         <module>blade-user-api</module>
         <module>blade-demo-api</module>
         <module>exam-user-api</module>
+        <module>exam-question-api</module>
+        <module>exam-exampaper-api</module>
+        <module>exam-student-api</module>
+        <module>exam-record-api</module>
+        <module>exam-examquestion-api</module>
+        <module>exam-teacher-api</module>
+        <module>exam-score-api</module>
     </modules>
 
     <dependencies>

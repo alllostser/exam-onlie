@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.exam.question.mapper.QuestionMapper">
+  <resultMap id="BaseResultMap" type="com.exam.question.entity.Question">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="type" jdbcType="CHAR" property="type" />
+    <result column="option_a" jdbcType="VARCHAR" property="optionA" />
+    <result column="option_b" jdbcType="VARCHAR" property="optionB" />
+    <result column="option_c" jdbcType="VARCHAR" property="optionC" />
+    <result column="option_d" jdbcType="VARCHAR" property="optionD" />
+    <result column="score" jdbcType="DECIMAL" property="score" />
+    <result column="create_by" jdbcType="INTEGER" property="createBy" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_by" jdbcType="INTEGER" property="updateBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="title" jdbcType="LONGVARCHAR" property="title" />
+    <result column="answer" jdbcType="LONGVARCHAR" property="answer" />
+    <result column="analyse" jdbcType="LONGVARCHAR" property="analyse" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, type, option_a, option_b, option_c, option_d, score, title, answer, analyse, create_date, update_date
+  </sql>
+<!--获取试题列表-->
+  <select id="queryAll" resultMap="BaseResultMap" parameterType="com.exam.question.entity.Question">
+    select
+    <include refid="Base_Column_List"/>
+    from question
+    <where>
+      <if test="type != null and type != ''">
+        and type = #{type}
+      </if>
+      <if test="title != null and title != ''">
+        and title like CONCAT('%',#{title},'%')
+      </if>
+      <if test="analyse != null and analyse != ''">
+        and analyse = #{analyse}
+      </if>
+    </where>
+  </select>
+
+  <!--新增所有列-->
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+    insert into question(
+    <if test="type != null and type != ''">type,</if>
+    <if test="title != null and title != ''">title,</if>
+    <if test="optionA != null and optionA != ''">option_a,</if>
+    <if test="optionB != null and optionB != ''">option_b,</if>
+    <if test="optionC != null and optionC != ''">option_c,</if>
+    <if test="optionD != null and optionD != ''">option_d,</if>
+    <if test="answer != null and answer != ''">answer,</if>
+    <if test="analyse != null and analyse != ''">analyse,</if>
+    <if test="createBy != null and createBy != ''">create_by,</if>
+    <if test="score != null and score != ''">score,</if>
+    create_date
+    )values(
+    <if test="type != null and type != ''">#{type},</if>
+    <if test="title != null and title != ''">#{title},</if>
+    <if test="optionA != null and optionA != ''">#{optionA},</if>
+    <if test="optionB != null and optionB != ''">#{optionB},</if>
+    <if test="optionC != null and optionC != ''">#{optionC},</if>
+    <if test="optionD != null and optionD != ''">#{optionD},</if>
+    <if test="answer != null and answer != ''">#{answer},</if>
+    <if test="analyse != null and analyse != ''">#{analyse},</if>
+    <if test="createBy != null and createBy != ''">#{createBy},</if>
+    <if test="score != null and score != ''">#{score},</if>
+    now()
+    )
+  </insert>
+
+  <!--通过主键修改数据-->
+  <update id="updateQuestion" parameterType="com.exam.question.entity.Question">
+    update question
+    <set>
+      <if test="type != null and type != ''">
+        type = #{type},
+      </if>
+      <if test="title != null and title != ''">
+        title = #{title},
+      </if>
+      <if test="optionA != null and optionA != ''">
+        option_a = #{optionA},
+      </if>
+      <if test="optionB != null and optionB != ''">
+        option_b = #{optionB},
+      </if>
+      <if test="optionC != null and optionC != ''">
+        option_c = #{optionC},
+      </if>
+      <if test="optionD != null and optionD != ''">
+        option_d = #{optionD},
+      </if>
+      <if test="answer != null and answer != ''">
+        answer = #{answer},
+      </if>
+      <if test="updateBy != null and updateBy != ''">
+        update_by = #{updateBy},
+      </if>
+      <if test="analyse != null and analyse != ''">
+        analyse = #{analyse},
+      </if>
+      <if test="score != null and score != ''">
+        score = #{score},
+      </if>
+      update_date = now()
+    </set>
+    where id = #{id}
+  </update>
+  <!--通过主键删除-->
+  <delete id="deleteByPrimaryKey">
+        delete from my_exam_test.question where id = #{id}
+  </delete>
+
+<!--  通过主键批量删除-->
+  <delete id="deleteByIds">
+    delete from question where id in
+    <foreach collection="array" item="id" separator="," open="(" close=")">
+      #{id}
+    </foreach>
+  </delete>
+<!--  通过id查找一条试题-->
+  <select id="selectOneById" parameterType="integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from question
+    where id=#{id}
+  </select>
+  <select id="findQuestionListByExamId" resultMap="BaseResultMap" parameterType="integer">
+    select <include refid="Base_Column_List"/> from question where id in
+    <foreach collection="list" item="id" separator="," open="(" close=")">
+      #{id}
+    </foreach>
+  </select>
+<!--  获取总记录条数-->
+  <select id="getCountAll" resultType="long">
+    select count(id) from question
+  </select>
+</mapper>

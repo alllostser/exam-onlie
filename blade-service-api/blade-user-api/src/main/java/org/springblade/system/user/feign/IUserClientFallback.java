@@ -15,9 +15,15 @@
  */
 package org.springblade.system.user.feign;
 
+import org.springblade.common.response.ServerResponse;
 import org.springblade.core.tool.api.R;
+import org.springblade.system.user.entity.User;
 import org.springblade.system.user.entity.UserInfo;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Feign失败配置
@@ -35,5 +41,20 @@ public class IUserClientFallback implements IUserClient {
 	@Override
 	public R<UserInfo> userInfo(String tenantId, String account, String password) {
 		return R.fail("未获取到账号信息");
+	}
+
+	@Override
+	public ServerResponse<User> findUserById(@RequestParam("id") Long id) {
+		return ServerResponse.serverResponseByFail(123,"未获取到账号信息");
+	}
+
+	@Override
+	public List<User> findUserByIds(@RequestParam("teacherids") List<Long> teacherids) {
+		List<User> users = new ArrayList<>();
+		User user = new User();
+		user.setName("未获取到账号信息");
+		user.setRealName("服务器异常");
+		users.add(user);
+		return users;
 	}
 }

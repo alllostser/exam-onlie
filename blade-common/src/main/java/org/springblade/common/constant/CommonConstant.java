@@ -8,6 +8,11 @@ package org.springblade.common.constant;
 public interface CommonConstant {
 
 	/**
+	 * 考试基础包名
+	 */
+	String BASE_PACKAGES = "com.exam";
+
+	/**
 	 * sword 系统名
 	 */
 	String SWORD_NAME = "sword";
@@ -20,6 +25,36 @@ public interface CommonConstant {
 	 * 系统名
 	 */
 	String APPLICATION_EXAMUSER_NAME = "exam-user";
+
+	/**
+	 * 系统名
+	 */
+	String APPLICATION_RECORD_NAME = "exam-record";
+
+	/**
+	 * 系统名
+	 */
+	String APPLICATION_STUDENT_NAME = "exam-student";
+
+	/**
+	 * 系统名
+	 */
+	String APPLICATION_QUESTION_NAME = "exam-question";
+
+	/**
+	 * 系统名
+	 */
+	String APPLICATION_EXAM_QUESTION_NAME = "exam-examquestion";
+
+	/**
+	 * 系统名
+	 */
+	String APPLICATION_EXAM_TEACHER_NAME = "exam-teacher";
+
+	/**
+	 * 系统名
+	 */
+	String APPLICATION_EXAM_PAPER_NAME = "exam-exampaper";
 
 	/**
 	 * 顶级父节点id

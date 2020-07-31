@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.exam.record.mapper.ExamRecordMapper">
+  <resultMap id="BaseResultMap" type="com.exam.record.entity.ExamRecord">
+    <id column="exam_id" jdbcType="INTEGER" property="examId" />
+    <id column="stu_id" jdbcType="INTEGER" property="stuId" />
+    <id column="question_id" jdbcType="INTEGER" property="questionId" />
+    <result column="final_score" jdbcType="DECIMAL" property="finalScore" />
+    <result column="answer" jdbcType="LONGVARCHAR" property="answer" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    exam_id, stu_id, question_id,answer, final_score
+  </sql>
+<!--  根据examId,questionId,StudentId获取考试详情-->
+  <select id="selectRecordByExamIdAndQuestionIdAndStuId" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from exam_record
+    where exam_id=#{examId} and stu_id=#{stuId} and question_id=#{questionId}
+  </select>
+<!--  存在就更新，不存在就新增-->
+  <insert id="insertOrUpdateRecord">
+    replace into exam_record (exam_id, stu_id, question_id,answer) VALUES (#{examId}, #{stuId}, #{questionId},#{answer})
+  </insert>
+<!--  更新其最终成绩-->
+  <update id="updateRecordFinalScore" parameterType="com.exam.record.entity.ExamRecord">
+        update exam_record set final_score=#{finalScore} where exam_id=#{examId} and stu_id=#{stuId} and question_id=#{questionId}
+  </update>
+
+  <select id="selectRecordByExamIdAndStuId" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from exam_record
+    where  exam_id=#{examId} and stu_id=#{stuId}
+  </select>
+</mapper>
